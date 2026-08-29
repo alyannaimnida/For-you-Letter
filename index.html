@@ -1,0 +1,2707 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>♡ Interactive Letter Maker</title>
+
+
+<!-- =========================
+     FONTS
+========================= -->
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
+rel="stylesheet">
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family: "Manrope", sans-serif;
+
+    color: white;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 20%,
+            #c52a4d55,
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 80%,
+            #ff6b8d44,
+            transparent 30%
+        ),
+
+        linear-gradient(
+            145deg,
+            #300009,
+            #620016,
+            #8d1732
+        );
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.glow {
+
+    position: fixed;
+
+    width: 300px;
+
+    height: 300px;
+
+    border-radius: 50%;
+
+    background: #ff668622;
+
+    filter: blur(80px);
+
+    pointer-events: none;
+
+}
+
+
+.glow.one {
+
+    top: -120px;
+
+    left: -120px;
+
+}
+
+
+.glow.two {
+
+    right: -120px;
+
+    bottom: -120px;
+
+}
+
+
+/* =====================================================
+   COMMON
+===================================================== */
+
+.page {
+
+    min-height: 100vh;
+
+    padding: 50px 20px;
+
+}
+
+
+.container {
+
+    width: min(850px, 100%);
+
+    margin: auto;
+
+}
+
+
+.title {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+
+}
+
+
+.eyebrow {
+
+    text-transform: uppercase;
+
+    letter-spacing: 5px;
+
+    font-size: 10px;
+
+    opacity: .6;
+
+    margin-bottom: 10px;
+
+}
+
+
+.title h1 {
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: clamp(50px, 9vw, 80px);
+
+    font-weight: 400;
+
+    line-height: .95;
+
+}
+
+
+.title p {
+
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    opacity: .65;
+
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.card {
+
+    background: #fffaf8;
+
+    color: #4b1721;
+
+    border-radius: 28px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 30px 80px #0005;
+
+}
+
+
+.section {
+
+    padding-bottom: 30px;
+
+    margin-bottom: 30px;
+
+    border-bottom:
+        1px solid #edd5da;
+
+}
+
+
+.section:last-of-type {
+
+    border-bottom: none;
+
+}
+
+
+.section h2 {
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: 28px;
+
+    font-weight: 400;
+
+    color: #7c001d;
+
+    margin-bottom: 20px;
+
+}
+
+
+label {
+
+    display: block;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #6d2031;
+
+    margin:
+
+        16px 0 7px;
+
+}
+
+
+input,
+textarea {
+
+    width: 100%;
+
+    border:
+
+        1px solid #e4bec7;
+
+    border-radius: 12px;
+
+    padding: 13px 15px;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    outline: none;
+
+    color: #4b1721;
+
+    background: #fffafa;
+
+    transition: .25s;
+
+}
+
+
+input:focus,
+textarea:focus {
+
+    border-color: #941d3c;
+
+    box-shadow:
+        0 0 0 4px #941d3c12;
+
+}
+
+
+textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+
+}
+
+
+/* =====================================================
+   ITEM BOX
+===================================================== */
+
+.item {
+
+    background: #fff4f6;
+
+    border: 1px solid #edd2d8;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    margin-top: 15px;
+
+}
+
+
+.item-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #81001e;
+
+    font-weight: 700;
+
+    font-size: 13px;
+
+}
+
+
+.item-number {
+
+    width: 28px;
+
+    height: 28px;
+
+    border-radius: 50%;
+
+    background: #85001f;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.generate {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 100px;
+
+    padding: 16px;
+
+    background: #85001f;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+.generate:hover {
+
+    transform: translateY(-3px);
+
+    background: #690018;
+
+    box-shadow:
+        0 12px 30px #85001f44;
+
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+#result {
+
+    display: none;
+
+    margin-top: 25px;
+
+    text-align: center;
+
+}
+
+
+.success {
+
+    font-size: 35px;
+
+}
+
+
+#result h3 {
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: 27px;
+
+    color: #79001d;
+
+    margin: 5px 0;
+
+}
+
+
+#result p {
+
+    font-size: 12px;
+
+    color: #81505c;
+
+    margin-bottom: 15px;
+
+}
+
+
+.link {
+
+    background: #fff4f6;
+
+    border: 1px solid #e7cbd1;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    font-size: 11px;
+
+    color: #6d2637;
+
+    word-break: break-all;
+
+    text-align: left;
+
+}
+
+
+.actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+}
+
+
+.actions button {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 100px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+}
+
+
+.copy {
+
+    background: #f1dce1;
+
+    color: #75001c;
+
+}
+
+
+.preview {
+
+    background: #85001f;
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   RECIPIENT
+===================================================== */
+
+#recipient {
+
+    display: none;
+
+}
+
+
+.center {
+
+    min-height: 90vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+}
+
+
+.center h1 {
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: clamp(55px, 10vw, 90px);
+
+    font-weight: 400;
+
+}
+
+
+.center p {
+
+    opacity: .65;
+
+    font-size: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.open {
+
+    margin-top: 30px;
+
+    border: none;
+
+    border-radius: 100px;
+
+    background: white;
+
+    color: #76001c;
+
+    padding: 15px 30px;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   EXPERIENCE
+===================================================== */
+
+.experience {
+
+    display: none;
+
+}
+
+
+.experience.active {
+
+    display: block;
+
+}
+
+
+.experience-header {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.experience-header small {
+
+    text-transform: uppercase;
+
+    letter-spacing: 4px;
+
+    opacity: .55;
+
+    font-size: 9px;
+
+}
+
+
+.experience-header h2 {
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: 45px;
+
+    font-weight: 400;
+
+    margin-top: 8px;
+
+}
+
+
+.experience-header p {
+
+    font-size: 12px;
+
+    opacity: .6;
+
+    margin-top: 7px;
+
+}
+
+
+/* =====================================================
+   BALLOONS
+===================================================== */
+
+.balloon-area {
+
+    height: 420px;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+.balloon {
+
+    position: absolute;
+
+    width: 105px;
+
+    height: 130px;
+
+    border-radius:
+        50% 50% 45% 45%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 25px;
+
+    box-shadow:
+        inset -15px -18px 25px #0002,
+        0 15px 30px #0003;
+
+    animation:
+        balloonFloat 4s ease-in-out infinite;
+
+    transition: .2s;
+
+}
+
+
+.balloon::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: -100px;
+
+    height: 110px;
+
+    width: 1px;
+
+    background: #ffffff55;
+
+}
+
+
+.balloon:nth-child(1) {
+
+    background: #a51b3d;
+
+    left: 5%;
+
+    top: 100px;
+
+}
+
+
+.balloon:nth-child(2) {
+
+    background: #d65370;
+
+    left: 29%;
+
+    top: 30px;
+
+    animation-delay: .5s;
+
+}
+
+
+.balloon:nth-child(3) {
+
+    background: #78152d;
+
+    left: 54%;
+
+    top: 115px;
+
+    animation-delay: 1s;
+
+}
+
+
+.balloon:nth-child(4) {
+
+    background: #e57d91;
+
+    left: 78%;
+
+    top: 50px;
+
+    animation-delay: 1.5s;
+
+}
+
+
+@keyframes balloonFloat {
+
+    0%,100% {
+
+        margin-top: 0;
+
+    }
+
+    50% {
+
+        margin-top: -15px;
+
+    }
+
+}
+
+
+.balloon.popped {
+
+    animation:
+        pop .4s forwards;
+
+}
+
+
+@keyframes pop {
+
+    50% {
+
+        transform:
+            scale(1.5);
+
+        opacity: .5;
+
+    }
+
+    100% {
+
+        transform:
+            scale(0);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =====================================================
+   BEARS
+===================================================== */
+
+.bears {
+
+    display: none;
+
+}
+
+
+.bear-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+}
+
+
+.bear {
+
+    background: #ffffff10;
+
+    border:
+        1px solid #ffffff18;
+
+    border-radius: 22px;
+
+    padding: 30px 15px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+.bear:hover {
+
+    transform:
+        translateY(-8px);
+
+    background:
+        #ffffff1b;
+
+}
+
+
+.bear-icon {
+
+    font-size: 65px;
+
+}
+
+
+.bear-name {
+
+    margin-top: 8px;
+
+    font-size: 11px;
+
+    opacity: .7;
+
+}
+
+
+.next-button {
+
+    display: block;
+
+    margin: 30px auto 0;
+
+    border: none;
+
+    border-radius: 100px;
+
+    background: white;
+
+    color: #79001d;
+
+    padding: 15px 28px;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: #260008aa;
+
+    backdrop-filter: blur(9px);
+
+    z-index: 100;
+
+}
+
+
+.popup.show {
+
+    display: flex;
+
+}
+
+
+.popup-card {
+
+    width: min(430px,100%);
+
+    background: #fffaf7;
+
+    color: #4c1721;
+
+    border-radius: 25px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow: 0 30px 80px #0007;
+
+    animation: popup .4s ease;
+
+}
+
+
+@keyframes popup {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.9);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+.popup-icon {
+
+    font-size: 60px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.popup-card h3 {
+
+    font-family:
+        "DM Serif Display", serif;
+
+    font-size: 28px;
+
+    font-weight: 400;
+
+    color: #79001d;
+
+}
+
+
+.popup-card p {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    color: #754651;
+
+}
+
+
+.close {
+
+    margin-top: 22px;
+
+    border: none;
+
+    border-radius: 100px;
+
+    background: #830020;
+
+    color: white;
+
+    padding: 11px 25px;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   FINAL LETTER
+===================================================== */
+
+.final-letter {
+
+    display: none;
+
+    width: min(800px,100%);
+
+    margin: auto;
+
+}
+
+
+.final-letter.show {
+
+    display: block;
+
+    animation:
+        reveal 1s ease;
+
+}
+
+
+@keyframes reveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(40px)
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+.letter {
+
+    background: #fffaf7;
+
+    color: #481a23;
+
+    border-radius: 8px;
+
+    padding:
+        55px clamp(25px,8vw,75px);
+
+    box-shadow:
+        0 35px 90px #0008;
+
+    position: relative;
+
+}
+
+
+.letter::after {
+
+    content: "♡";
+
+    position: absolute;
+
+    right: 25px;
+
+    top: 10px;
+
+    font-size: 90px;
+
+    color: #e5b8c1;
+
+    opacity: .4;
+
+}
+
+
+.letter-label {
+
+    text-transform: uppercase;
+
+    letter-spacing: 4px;
+
+    font-size: 9px;
+
+    color: #9b5362;
+
+}
+
+
+.letter h1 {
+
+    font-family:
+        "Playfair Display", serif;
+
+    font-size:
+        clamp(40px,8vw,60px);
+
+    font-weight: 400;
+
+    color: #79001d;
+
+    margin:
+        10px 0 30px;
+
+}
+
+
+.message {
+
+    white-space: pre-wrap;
+
+    font-size: 14px;
+
+    line-height: 2;
+
+    color: #5d353e;
+
+}
+
+
+.signature {
+
+    margin-top: 45px;
+
+    text-align: right;
+
+    font-family:
+        "Playfair Display", serif;
+
+    font-style: italic;
+
+    font-size: 24px;
+
+    color: #850021;
+
+}
+
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+.confetti {
+
+    position: fixed;
+
+    width: 8px;
+
+    height: 8px;
+
+    top: -20px;
+
+    z-index: 200;
+
+    animation:
+        fall 2.5s linear forwards;
+
+}
+
+
+@keyframes fall {
+
+    to {
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:650px) {
+
+    .card {
+
+        padding: 25px 20px;
+
+    }
+
+    .bear-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .balloon {
+
+        width: 75px;
+
+        height: 95px;
+
+    }
+
+    .balloon-area {
+
+        height: 350px;
+
+    }
+
+    .actions {
+
+        flex-direction: column;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+
+<!-- =====================================================
+     CREATOR PAGE
+===================================================== -->
+
+<div id="creatorPage" class="page">
+
+<div class="container">
+
+
+<div class="title">
+
+<div class="eyebrow">
+interactive letter maker
+</div>
+
+<h1>
+For You ♡
+</h1>
+
+<p>
+Create your own little interactive surprise.
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+
+<!-- =========================
+     BASIC INFO
+========================= -->
+
+<div class="section">
+
+<h2>
+01 — The letter
+</h2>
+
+
+<label>
+Recipient's name
+</label>
+
+<input
+id="name"
+placeholder="e.g. Maria"
+>
+
+
+<label>
+Your message
+</label>
+
+<textarea
+id="finalMessage"
+placeholder="Write your actual letter here..."
+></textarea>
+
+
+<label>
+Your name
+</label>
+
+<input
+id="from"
+placeholder="e.g. Yanna"
+>
+
+</div>
+
+
+
+<!-- =========================
+     BALLOONS
+========================= -->
+
+<div class="section">
+
+<h2>
+02 — Balloon messages 🎈
+</h2>
+
+
+<!-- BALLOON 1 -->
+
+<div class="item">
+
+<div class="item-title">
+
+<div class="item-number">
+1
+</div>
+
+Balloon One 🎈
+
+</div>
+
+<label>
+Title
+</label>
+
+<input
+id="balloonTitle1"
+placeholder="e.g. A tiny secret"
+>
+
+<label>
+Message
+</label>
+
+<textarea
+id="balloonMessage1"
+placeholder="What should appear when they pop this balloon?"
+></textarea>
+
+</div>
+
+
+
+<!-- BALLOON 2 -->
+
+<div class="item">
+
+<div class="item-title">
+
+<div class="item-number">
+2
+</div>
+
+Balloon Two 🎈
+
+</div>
+
+<label>
+Title
+</label>
+
+<input
+id="balloonTitle2"
+placeholder="e.g. Just because"
+>
+
+<label>
+Message
+</label>
+
+<textarea
+id="balloonMessage2"
+placeholder="Your message..."
+></textarea>
+
+</div>
+
+
+
+<!-- BALLOON 3 -->
+
+<div class="item">
+
+<div class="item-title">
+
+<div class="item-number">
+3
+</div>
+
+Balloon Three 🎈
+
+</div>
+
+<label>
+Title
+</label>
+
+<input
+id="balloonTitle3"
+placeholder="e.g. Another thing"
+>
+
+<label>
+Message
+</label>
+
+<textarea
+id="balloonMessage3"
+placeholder="Your message..."
+></textarea>
+
+</div>
+
+
+
+<!-- BALLOON 4 -->
+
+<div class="item">
+
+<div class="item-title">
+
+<div class="item-number">
+4
+</div>
+
+Balloon Four 🎈
+
+</div>
+
+<label>
+Title
+</label>
+
+<input
+id="balloonTitle4"
+placeholder="e.g. Almost there"
+>
+
+<label>
+Message
+</label>
+
+<textarea
+id="balloonMessage4"
+placeholder="Your message..."
+></textarea>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     BEARS
+========================= -->
+
+<div class="section">
+
+<h2>
+03 — Bear messages 🧸
+</h2>
+
+
+<!-- BEAR 1 -->
+
+<div class="item">
+
+<div class="item-title">
+
+<div class="item-number">
+1
+</div>
+
+Bear One 🧸
+
+</div>
+
+<label>
+Title
+</label>
+
+<input
+id="bearTitle1"
+placeholder="e.g. A little reminder"
+>
+
+<label>
+Message
+</label>
+
+<textarea
+id="bearMessage1"
+placeholder="Message hidden inside this bear..."
+></textarea>
+
+</div>
+
+
+
+<!-- BEAR 2 -->
+
+<div class="item">
+
+<div class="item-title">
+
+<div class="item-number">
+2
+</div>
+
+Bear Two 🧸
+
+</div>
+
+<label>
+Title
+</label>
+
+<input
+id="bearTitle2"
+placeholder="e.g. Something important"
+>
+
+<label>
+Message
+</label>
+
+<textarea
+id="bearMessage2"
+placeholder="Your message..."
+></textarea>
+
+</div>
+
+
+
+<!-- BEAR 3 -->
+
+<div class="item">
+
+<div class="item-title">
+
+<div class="item-number">
+3
+</div>
+
+Bear Three 🧸
+
+</div>
+
+<label>
+Title
+</label>
+
+<input
+id="bearTitle3"
+placeholder="e.g. One more thing"
+>
+
+<label>
+Message
+</label>
+
+<textarea
+id="bearMessage3"
+placeholder="Your message..."
+></textarea>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     GENERATE
+========================= -->
+
+<button
+class="generate"
+onclick="generateLetter()">
+
+Create My Interactive Letter ♡
+
+</button>
+
+
+
+<!-- =========================
+     RESULT
+========================= -->
+
+<div id="result">
+
+<div class="success">
+💌
+</div>
+
+<h3>
+Your letter is ready!
+</h3>
+
+<p>
+Copy the link and send it to them.
+</p>
+
+<div
+class="link"
+id="link">
+</div>
+
+<div class="actions">
+
+<button
+class="copy"
+onclick="copyLink()">
+
+Copy Link
+
+</button>
+
+<button
+class="preview"
+onclick="previewLetter()">
+
+Preview
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     RECIPIENT PAGE
+===================================================== -->
+
+<div id="recipient">
+
+
+<!-- =========================
+     OPEN SCREEN
+========================= -->
+
+<div
+class="center"
+id="openScreen">
+
+<div>
+
+<div class="eyebrow">
+someone made this for you
+</div>
+
+<h1>
+Just for you ♡
+</h1>
+
+<p>
+There's something waiting inside.
+</p>
+
+<button
+class="open"
+onclick="startLetter()">
+
+Open it ♡
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     BALLOON EXPERIENCE
+========================= -->
+
+<div
+class="experience"
+id="balloonExperience">
+
+<div class="container">
+
+<div class="experience-header">
+
+<small>
+step one
+</small>
+
+<h2>
+Pop the balloons
+</h2>
+
+<p>
+Maybe each one has something to say...
+</p>
+
+</div>
+
+
+<div class="balloon-area">
+
+
+<div
+class="balloon"
+onclick="popBalloon(this,0)">
+
+♡ 
+
+</div>
+
+
+<div
+class="balloon"
+onclick="popBalloon(this,1)">
+
+♡
+
+</div>
+
+
+<div
+class="balloon"
+onclick="popBalloon(this,2)">
+
+♡
+
+</div>
+
+
+<div
+class="balloon"
+onclick="popBalloon(this,3)">
+
+♡
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     BEAR EXPERIENCE
+========================= -->
+
+<div
+class="bears"
+id="bearExperience">
+
+<div class="container">
+
+<div class="experience-header">
+
+<small>
+step two
+</small>
+
+<h2>
+Pick a little bear
+</h2>
+
+<p>
+Each one has a little message.
+</p>
+
+</div>
+
+
+<div class="bear-grid">
+
+
+<div
+class="bear"
+onclick="bearClick(0)">
+
+<div class="bear-icon">
+🧸
+</div>
+
+<div
+class="bear-name"
+id="bearDisplay1">
+
+click me ♡
+
+</div>
+
+</div>
+
+
+
+<div
+class="bear"
+onclick="bearClick(1)">
+
+<div class="bear-icon">
+🧸
+</div>
+
+<div
+class="bear-name"
+id="bearDisplay2">
+
+click me ♡
+
+</div>
+
+</div>
+
+
+
+<div
+class="bear"
+onclick="bearClick(2)">
+
+<div class="bear-icon">
+🧸
+</div>
+
+<div
+class="bear-name"
+id="bearDisplay3">
+
+click me ♡
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<button
+class="next-button"
+onclick="showFinalLetter()">
+
+There's one last thing... ♡
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     FINAL LETTER
+========================= -->
+
+<div
+class="final-letter"
+id="finalLetter">
+
+<div class="container">
+
+<div class="letter">
+
+<div class="letter-label">
+a letter for you
+</div>
+
+<h1 id="finalName">
+Dear You,
+</h1>
+
+<div
+class="message"
+id="finalText">
+</div>
+
+<div
+class="signature"
+id="finalSignature">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div
+class="popup"
+id="popup">
+
+<div class="popup-card">
+
+<div class="popup-icon">
+🧸
+</div>
+
+<h3
+id="popupTitle">
+</h3>
+
+<p
+id="popupText">
+</p>
+
+<button
+class="close"
+onclick="closePopup()">
+
+Continue ♡
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let letterData = null;
+
+let popped = 0;
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+window.onload = function() {
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const encoded =
+params.get("letter");
+
+
+if(encoded) {
+
+try {
+
+letterData =
+decodeData(encoded);
+
+showRecipient();
+
+}
+
+catch(error) {
+
+showCreator();
+
+}
+
+}
+
+else {
+
+showCreator();
+
+}
+
+};
+
+
+/* =====================================================
+   SHOW CREATOR
+===================================================== */
+
+function showCreator() {
+
+document
+.getElementById("creatorPage")
+.style.display = "block";
+
+document
+.getElementById("recipient")
+.style.display = "none";
+
+}
+
+
+/* =====================================================
+   SHOW RECIPIENT
+===================================================== */
+
+function showRecipient() {
+
+document
+.getElementById("creatorPage")
+.style.display = "none";
+
+document
+.getElementById("recipient")
+.style.display = "block";
+
+}
+
+
+/* =====================================================
+   GENERATE LETTER
+===================================================== */
+
+function generateLetter() {
+
+
+const name =
+document
+.getElementById("name")
+.value
+.trim();
+
+
+const message =
+document
+.getElementById("finalMessage")
+.value
+.trim();
+
+
+const from =
+document
+.getElementById("from")
+.value
+.trim();
+
+
+if(!name) {
+
+alert(
+"Please enter the recipient's name ♡"
+);
+
+return;
+
+}
+
+
+if(!message) {
+
+alert(
+"Please write the final message ♡"
+);
+
+return;
+
+}
+
+
+/* =================================
+   COLLECT EVERYTHING
+================================= */
+
+letterData = {
+
+name: name,
+
+message: message,
+
+from: from || "someone special",
+
+
+balloons: [
+
+{
+
+title:
+document
+.getElementById("balloonTitle1")
+.value,
+
+message:
+document
+.getElementById("balloonMessage1")
+.value
+
+},
+
+{
+
+title:
+document
+.getElementById("balloonTitle2")
+.value,
+
+message:
+document
+.getElementById("balloonMessage2")
+.value
+
+},
+
+{
+
+title:
+document
+.getElementById("balloonTitle3")
+.value,
+
+message:
+document
+.getElementById("balloonMessage3")
+.value
+
+},
+
+{
+
+title:
+document
+.getElementById("balloonTitle4")
+.value,
+
+message:
+document
+.getElementById("balloonMessage4")
+.value
+
+}
+
+],
+
+
+bears: [
+
+{
+
+title:
+document
+.getElementById("bearTitle1")
+.value,
+
+message:
+document
+.getElementById("bearMessage1")
+.value
+
+},
+
+{
+
+title:
+document
+.getElementById("bearTitle2")
+.value,
+
+message:
+document
+.getElementById("bearMessage2")
+.value
+
+},
+
+{
+
+title:
+document
+.getElementById("bearTitle3")
+.value,
+
+message:
+document
+.getElementById("bearMessage3")
+.value
+
+}
+
+]
+
+};
+
+
+/* =================================
+   ENCODE
+================================= */
+
+const encoded =
+encodeData(letterData);
+
+
+const link =
+window.location.origin +
+window.location.pathname +
+"?letter=" +
+encoded;
+
+
+/* =================================
+   SHOW LINK
+================================= */
+
+document
+.getElementById("link")
+.textContent =
+link;
+
+
+document
+.getElementById("result")
+.style.display =
+"block";
+
+
+document
+.getElementById("result")
+.scrollIntoView({
+behavior: "smooth"
+});
+
+}
+
+
+/* =====================================================
+   ENCODE
+===================================================== */
+
+function encodeData(data) {
+
+return btoa(
+encodeURIComponent(
+JSON.stringify(data)
+)
+);
+
+}
+
+
+/* =====================================================
+   DECODE
+===================================================== */
+
+function decodeData(encoded) {
+
+return JSON.parse(
+
+decodeURIComponent(
+
+atob(encoded)
+
+)
+
+);
+
+}
+
+
+/* =====================================================
+   COPY
+===================================================== */
+
+function copyLink() {
+
+const link =
+document
+.getElementById("link")
+.textContent;
+
+
+navigator
+.clipboard
+.writeText(link);
+
+
+alert(
+"Link copied! ♡"
+);
+
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+function previewLetter() {
+
+const link =
+document
+.getElementById("link")
+.textContent;
+
+
+window.open(
+link,
+"_blank"
+);
+
+}
+
+
+/* =====================================================
+   START EXPERIENCE
+===================================================== */
+
+function startLetter() {
+
+document
+.getElementById("openScreen")
+.style.display =
+"none";
+
+
+document
+.getElementById("balloonExperience")
+.classList
+.add("active");
+
+}
+
+
+/* =====================================================
+   BALLOON MESSAGES
+===================================================== */
+
+function popBalloon(
+element,
+index
+) {
+
+
+if(
+element.classList.contains(
+"popped"
+)
+) {
+
+return;
+
+}
+
+
+element.classList.add(
+"popped"
+);
+
+
+popped++;
+
+
+/* Get CUSTOM message */
+
+const data =
+letterData.balloons[index];
+
+
+showPopup(
+
+data.title ||
+"♡",
+
+data.message ||
+"Someone left this here for you."
+
+);
+
+
+createConfetti();
+
+
+/* All balloons popped */
+
+if(popped === 4) {
+
+setTimeout(function() {
+
+document
+.getElementById(
+"balloonExperience"
+)
+.style.display =
+"none";
+
+
+document
+.getElementById(
+"bearExperience"
+)
+.style.display =
+"block";
+
+
+},800);
+
+}
+
+}
+
+
+/* =====================================================
+   BEARS
+===================================================== */
+
+function bearClick(index) {
+
+const data =
+letterData.bears[index];
+
+
+showPopup(
+
+data.title ||
+"♡",
+
+data.message ||
+"Something was hidden here for you."
+
+);
+
+
+createConfetti();
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+function showPopup(
+title,
+text
+) {
+
+document
+.getElementById(
+"popupTitle"
+)
+.textContent =
+title;
+
+
+document
+.getElementById(
+"popupText"
+)
+.textContent =
+text;
+
+
+document
+.getElementById(
+"popup"
+)
+.classList
+.add("show");
+
+}
+
+
+function closePopup() {
+
+document
+.getElementById(
+"popup"
+)
+.classList
+.remove("show");
+
+}
+
+
+/* =====================================================
+   FINAL LETTER
+===================================================== */
+
+function showFinalLetter() {
+
+
+document
+.getElementById(
+"bearExperience"
+)
+.style.display =
+"none";
+
+
+document
+.getElementById(
+"finalLetter"
+)
+.classList
+.add("show");
+
+
+document
+.getElementById(
+"finalName"
+)
+.textContent =
+"Dear " +
+letterData.name +
+",";
+
+
+document
+.getElementById(
+"finalText"
+)
+.textContent =
+letterData.message;
+
+
+document
+.getElementById(
+"finalSignature"
+)
+.textContent =
+"— " +
+letterData.from;
+
+
+createConfetti();
+
+}
+
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+function createConfetti() {
+
+
+for(
+let i = 0;
+i < 30;
+i++
+) {
+
+
+const piece =
+document.createElement(
+"div"
+);
+
+
+piece.className =
+"confetti";
+
+
+piece.style.left =
+Math.random() *
+100 +
+"vw";
+
+
+piece.style.animationDelay =
+Math.random() *
+.5 +
+"s";
+
+
+const colors = [
+
+"#ffffff",
+
+"#ffb5c5",
+
+"#e76582",
+
+"#9c1638"
+
+];
+
+
+piece.style.background =
+colors[
+Math.floor(
+Math.random() *
+colors.length
+)
+];
+
+
+document.body
+.appendChild(piece);
+
+
+setTimeout(
+function() {
+
+piece.remove();
+
+},
+3000
+);
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
+
